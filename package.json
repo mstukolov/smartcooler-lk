@@ -1,0 +1,25 @@
+{
+  "name": "smartcooler-lk",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "pondjs": "^0.8.7",
+    "react": "^15.6.1",
+    "react-bootstrap": "latest",
+    "react-bootstrap-table": "^4.0.2",
+    "react-dom": "^15.6.1",
+    "react-router": "latest",
+    "react-router-dom": "latest",
+    "react-scripts": "1.0.11",
+    "react-timeseries-charts": "^0.12.8",
+    "recharts": "latest",
+    "pondjs": "latest",
+    "react-bootstrap-date-picker": "latest"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
