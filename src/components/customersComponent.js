@@ -73,8 +73,8 @@ function adjustDateCell(cell, row) {
     return cell;
 }
 function hrefFormatter(cell, row) {
-    //return <a href="/">{cell}</a>;
-    return  <Link to="/reports">{cell}</Link>;
+    var url = "/orgcard?" + cell;
+    return  <Link to={url}>{cell}</Link>;
 }
 
 export default CustomersComponent

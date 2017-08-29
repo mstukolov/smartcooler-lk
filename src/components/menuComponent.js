@@ -12,6 +12,7 @@ import ContactComponent from "./contactComponent";
 import SupportComponent from "./supportComponent";
 import ReplenishmentComponent from "./replenishmentComponent";
 import YandexmapsComponent from "./geo/yandexmapsComponent";
+import OrganizationCard from "./customers/organizationCard";
 
 const navbar = {color: '#c0c3c6', fontSize:18};
 
@@ -76,6 +77,7 @@ class MenuComponent extends Component {
                         <Route path="/order-new-device" component={OrderdeviceComponent}/>
                         <Route path="/contact" component={ContactComponent}/>
                         <Route path="/support" component={SupportComponent}/>
+                        <Route path="/orgcard" component={OrganizationCard}/>
                     </div>
                 </Router>
             </div>
