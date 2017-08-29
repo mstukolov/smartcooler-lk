@@ -4,9 +4,8 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
+import axios from 'axios';
 
-
-import mockData from '../mock/mockDevices.json';
 
 function onAfterInsertRow(row) {
     let newRowStr = '';
@@ -19,15 +18,19 @@ function onAfterDeleteRow(rowKeys) {
     alert('The rowkey you drop: ' + rowKeys);
 }
 
+var self;
 class DevicesComponent extends Component {
     constructor(props) {
         super(props);
+        self = this;
         this.state = {
-            data: mockData
+            data: [],
+            parentorgid: '13445412'
         }
         this.options = {
             defaultSortName: 'devid',
             defaultSortOrder: 'asc',
+            sizePerPage: 25,
             noDataText: 'This is custom text for empty data',
             paginationPosition: 'bottom',
             afterInsertRow: onAfterInsertRow,
@@ -38,9 +41,12 @@ class DevicesComponent extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log('componentDidMount is run')
+    componentDidMount(){
+        let url = "http://localhost:6013/devices?parentorgid=" + this.state.parentorgid
+        axios.get(url).then(function (response) {
+            self.setState({data: response.data})}).catch(function (error) {});
     }
+
     componentWillMount() {
         console.log('componentWillMount is run')
     }
@@ -58,12 +64,17 @@ class DevicesComponent extends Component {
                                 search={ true }
                                 multiColumnSearch={ true }
                                 striped hover condensed pagination>
-                    <TableHeaderColumn row='1' width='150' dataField='devid' isKey dataSort>ID</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='devname' dataSort>Название</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='orgid' dataSort>Организация</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='id' isKey dataSort>ID</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='orgid' dataSort>Код клиента</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='org' dataSort dataFormat={showCustomerName}>Наименование клиента</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='devid' dataSort>Устройство</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='devtype' dataSort>Тип устройства</TableHeaderColumn>
                 </BootstrapTable >
             </div>
         )}
+}
+function showCustomerName(cell, row) {
+    return cell.organization;
 }
 
 export default DevicesComponent

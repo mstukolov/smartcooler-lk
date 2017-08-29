@@ -11,6 +11,7 @@ import OrderdeviceComponent from "./orderdeviceComponent";
 import ContactComponent from "./contactComponent";
 import SupportComponent from "./supportComponent";
 import ReplenishmentComponent from "./replenishmentComponent";
+import YandexmapsComponent from "./geo/yandexmapsComponent";
 
 const navbar = {color: '#c0c3c6', fontSize:18};
 
@@ -26,7 +27,7 @@ class MenuComponent extends Component {
                         <Navbar inverse collapseOnSelect>
                             <Navbar.Header>
                                 <Navbar.Brand>
-                                    <a href="/">Клиентский портал</a>
+                                    <Link to="/" style={navbar}>Клиентский портал</Link>
                                 </Navbar.Brand>
                                 <Navbar.Toggle />
                             </Navbar.Header>
@@ -67,6 +68,7 @@ class MenuComponent extends Component {
                         {/*<Route path='/' component={Login}>
 
                         </Route>*/}
+                        <Route exact path="/" component={YandexmapsComponent}/>
                         <Route exact path="/reports" component={ReportsComponent}/>
                         <Route path="/replenishment" component={ReplenishmentComponent}/>
                         <Route path="/devices" component={DevicesComponent}/>

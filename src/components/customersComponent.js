@@ -4,8 +4,8 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
-
-import mockData from '../mock/mockClients.json';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import axios from 'axios';
 
 function onAfterInsertRow(row) {
     let newRowStr = '';
@@ -18,18 +18,18 @@ function onAfterDeleteRow(rowKeys) {
     alert('The rowkey you drop: ' + rowKeys);
 }
 
-
+var self;
 class CustomersComponent extends Component {
 
     constructor(props) {
         super(props);
+        self = this;
         this.state = {
-            data: mockData
+            data: [],
+            parentorgid: '13445412'
         }
         this.options = {
-            defaultSortName: 'orgid',
-            defaultSortOrder: 'asc',
-            noDataText: 'This is custom text for empty data',
+            noDataText: 'Данные отсутствуют',
             paginationPosition: 'bottom',
             afterInsertRow: onAfterInsertRow,
             afterDeleteRow: onAfterDeleteRow,
@@ -39,32 +39,42 @@ class CustomersComponent extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log('componentDidMount is run')
-    }
-    componentWillMount() {
-        console.log('componentWillMount is run')
+    componentDidMount(){
+        let url = "http://localhost:6013/organizations?parentorgid=" + this.state.parentorgid
+        axios.get(url).then(function (response) {
+            self.setState({data: response.data})}).catch(function (error) {});
     }
     render() {
         return (
             <div>
-                <h1>Управление устройствами</h1>
+                <h1>Клиенты</h1>
                 <BootstrapTable data={ this.state.data }
                                 insertRow={ true }
                                 deleteRow={ true }
                                 exportCSV={ true }
                                 bordered={ true }
                                 options={  this.options }
-                                scrollTop={ 'Bottom' }
+                                scrollTop={ 'TOP' }
                                 search={ true }
                                 multiColumnSearch={ true }
                                 striped hover condensed pagination>
-                    <TableHeaderColumn row='1' width='150' dataField='orgid' isKey dataSort>ID</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='id' isKey dataSort dataFormat={hrefFormatter}>Код</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='organization' dataSort>Организация</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='address' dataSort>Адресс</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='active' dataSort>Активность</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='agreement' dataSort>Договор</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='agreementDate' dataSort dataFormat={adjustDateCell}>Дата договора</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='inventQty' dataSort>Остаток</TableHeaderColumn>
                 </BootstrapTable >
             </div>
         )}
+}
+
+function adjustDateCell(cell, row) {
+    return cell;
+}
+function hrefFormatter(cell, row) {
+    //return <a href="/">{cell}</a>;
+    return  <Link to="/reports">{cell}</Link>;
 }
 
 export default CustomersComponent

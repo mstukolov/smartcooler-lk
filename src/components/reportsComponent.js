@@ -23,7 +23,10 @@ class ReportsComponent extends Component {
         super();
         self = this;
         this.state = {
-            data: [],
+            dailyData: [],
+            monthData: [],
+            quartData: [],
+            yearData: [],
             start: '',
             end: '',
             orgid: 141,
@@ -41,17 +44,32 @@ class ReportsComponent extends Component {
         }).catch(function (error) {});
     }
     requestChartsData(){
-        this.setState({data:[]})
-        var url = 'http://localhost:6013/repdaystats?' +
+        this.setState({dailyData:[]})
+        this.setState({monthData:[]})
+        this.setState({quartData:[]})
+        this.setState({yearData:[]})
+
+        var urlDay = 'http://localhost:6013/repdaystats?' +
                     'start='+ this.state.start +
                     '&end=' + this.state.end +
-                    '&orgid=' + this.state.reportOrganization.value
+                    '&orgid=' + this.state.reportOrganization.value;
 
-        console.log('Построение данных по: ' + this.state.reportOrganization.value)
-        axios.get(url).then(function (response) {
-            self.setState({
-                data: self.state.data.concat(response.data)})
-        }).catch(function (error) {});
+        let urlMonth = 'http://localhost:6013/repmonthstats?orgid=' + this.state.reportOrganization.value
+        let urlQuart = 'http://localhost:6013/repquartstats?orgid=' + this.state.reportOrganization.value
+        let urlYear = 'http://localhost:6013/repyeartstats?orgid=' + this.state.reportOrganization.value
+
+        axios.get(urlDay).then(function (response) {
+            self.setState({dailyData: self.state.dailyData.concat(response.data)})}).catch(function (error) {});
+
+        axios.get(urlMonth).then(function (response) {
+            self.setState({monthData: self.state.monthData.concat(response.data)})}).catch(function (error) {});
+
+        axios.get(urlQuart).then(function (response) {
+            self.setState({quartData: self.state.quartData.concat(response.data)})}).catch(function (error) {});
+
+        axios.get(urlYear).then(function (response) {
+            self.setState({yearData: self.state.yearData.concat(response.data)})}).catch(function (error) {});
+
     }
     handleChangePeriodStart(start, formattedValue) {
         this.setState({
@@ -95,16 +113,28 @@ class ReportsComponent extends Component {
 
                 <div>
 
-                    <ConsumptionChartComponent chartName="Дневное потребление" data={self.state.data} width={1500} height={500}/>
+                    <ConsumptionChartComponent chartName="Дневное потребление"
+                                               data={self.state.dailyData}
+                                               dataKey={'recdate'}
+                                               width={1500} height={500} barSize={5}/>
                     <Form inline>
                         <FormGroup>
-                          <ConsumptionChartComponent chartName="Месячное потребление" data={self.state.data} width={500} height={300}/>
+                          <ConsumptionChartComponent chartName="Месячное потребление"
+                                                     data={self.state.monthData}
+                                                     dataKey={'recmonthyear'}
+                                                     width={500} height={300} barSize={20}/>
                         </FormGroup>
                         <FormGroup>
-                            <ConsumptionChartComponent chartName="Квартальное потребление" data={self.state.data} width={500} height={300}/>
+                            <ConsumptionChartComponent chartName="Квартальное потребление"
+                                                       data={self.state.quartData}
+                                                       dataKey={'recquart'}
+                                                       width={500} height={300} barSize={40}/>
                         </FormGroup>
                         <FormGroup>
-                            <ConsumptionChartComponent chartName="Годовое потребление" data={self.state.data} width={500} height={300}/>
+                            <ConsumptionChartComponent chartName="Годовое потребление"
+                                                       data={self.state.yearData}
+                                                       dataKey={'recyear'}
+                                                       width={500} height={300} barSize={80}/>
                         </FormGroup>
                     </Form>
 

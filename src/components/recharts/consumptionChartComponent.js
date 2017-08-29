@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import { ComposedChart, Cross, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 
 class ConsumptionChartComponent extends Component {
@@ -16,19 +16,17 @@ class ConsumptionChartComponent extends Component {
         return(
             <div>
                 <h3>{this.props.chartName}</h3>
-
-
                 {
                     this.props.data.length > 0
                         ? <ComposedChart  width={this.props.width} height={this.props.height} data={this.props.data}
                                           margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                                <XAxis dataKey="recdate"/>
+                                <XAxis dataKey={this.props.dataKey}/>
                                 <YAxis orientation="left" padding={{ top: 20, bottom: 20 }}/>
                                 <CartesianGrid strokeDasharray="3 3"/>
                                 <Tooltip/>
                                 <Legend />
-                                <Bar dataKey='valuein' barSize={5} fill='#413ea0'/>
-                                <Line type="monotone" dataKey="valueout" stroke="#8884d8"/>
+                                <Bar dataKey='valuein' name='Пополнение' barSize={this.props.barSize} fill='#99ccff'/>
+                                <Line type="monotone" name='Потребление' dataKey="valueout" stroke="#0000ff"/>
                         </ComposedChart >
                         : <h4>Отсутствуют данные для построения графика</h4>
                 }

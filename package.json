@@ -16,7 +16,8 @@
     "react-select": "^1.0.0-rc.5",
     "react-select-me": "^0.9.0",
     "react-timeseries-charts": "^0.12.8",
-    "recharts": "latest"
+    "recharts": "latest",
+    "react-yandex-maps": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
