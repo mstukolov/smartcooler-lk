@@ -7,6 +7,9 @@ import { BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import axios from 'axios';
 
+import OrganizationCard from "./customers/organizationCard";
+
+
 function onAfterInsertRow(row) {
     let newRowStr = '';
     for (const prop in row) {
@@ -58,7 +61,7 @@ class CustomersComponent extends Component {
                                 search={ true }
                                 multiColumnSearch={ true }
                                 striped hover condensed pagination>
-                    <TableHeaderColumn row='1' width='150' dataField='id' isKey dataSort dataFormat={hrefFormatter}>Код</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='id' isKey dataSort dataFormat={hrefFormatter}>Управление</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='organization' dataSort>Организация</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='active' dataSort>Активность</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='agreement' dataSort>Договор</TableHeaderColumn>
@@ -73,8 +76,8 @@ function adjustDateCell(cell, row) {
     return cell;
 }
 function hrefFormatter(cell, row) {
-    var url = "/orgcard?" + cell;
-    return  <Link to={url}>{cell}</Link>;
+    const newTo = { pathname: "/orgcard", orgid: cell };
+    return  <Link to={newTo}>Детали...</Link>;
 }
 
 export default CustomersComponent
