@@ -31,13 +31,14 @@ class ReportsComponent extends Component {
             end: '',
             orgid: 141,
             organizations : organizations,
-            reportOrganization: ''
+            reportOrganization: '',
+            parentorgid : '13445412'
         }
         this.onChangeReportOrganization = this.onChangeReportOrganization.bind(this);
 
     }
     componentDidMount(){
-        let url = "http://localhost:6013/organizations"
+        let url = "http://localhost:6013/organizations?parentorgid=" + this.state.parentorgid;
         axios.get(url).then(function (response) {
             response.data.map((item) => {organizations.push({value: item.id, label: item.id +','+item.organization})})
             self.setState({organizations: self.state.organizations.concat(organizations)})
