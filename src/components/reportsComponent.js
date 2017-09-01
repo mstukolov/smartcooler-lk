@@ -16,7 +16,7 @@ import ConsumptionChartComponent from "./recharts/consumptionChartComponent";
 
 
 var self;
-const organizations = [];
+var organizations = [];
 
 class ReportsComponent extends Component {
     constructor() {
@@ -39,6 +39,7 @@ class ReportsComponent extends Component {
     }
     componentDidMount(){
         let url = "http://localhost:6013/organizations?parentorgid=" + this.state.parentorgid;
+        organizations = []
         axios.get(url).then(function (response) {
             response.data.map((item) => {organizations.push({value: item.id, label: item.id +','+item.organization})})
             self.setState({organizations: self.state.organizations.concat(organizations)})

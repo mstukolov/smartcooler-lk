@@ -4,19 +4,8 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import axios from 'axios';
-
-
-function onAfterInsertRow(row) {
-    let newRowStr = '';
-    for (const prop in row) {
-        newRowStr += prop + ': ' + row[prop] + ' \n';
-    }
-    alert('The new row is:\n ' + newRowStr);
-}
-function onAfterDeleteRow(rowKeys) {
-    alert('The rowkey you drop: ' + rowKeys);
-}
 
 var self;
 class DevicesComponent extends Component {
@@ -31,10 +20,8 @@ class DevicesComponent extends Component {
             defaultSortName: 'devid',
             defaultSortOrder: 'asc',
             sizePerPage: 25,
-            noDataText: 'This is custom text for empty data',
+            noDataText: 'Данные отсутствуют',
             paginationPosition: 'bottom',
-            afterInsertRow: onAfterInsertRow,
-            afterDeleteRow: onAfterDeleteRow,
             insertText: 'Создать',
             deleteText: 'Удалить',
             exportCSVText: 'Выгрузить CSV',
@@ -55,8 +42,6 @@ class DevicesComponent extends Component {
             <div>
                 <h1>Управление устройствами</h1>
                 <BootstrapTable data={ this.state.data }
-                                insertRow={ true }
-                                deleteRow={ true }
                                 exportCSV={ true }
                                 bordered={ true }
                                 options={  this.options }
@@ -64,17 +49,20 @@ class DevicesComponent extends Component {
                                 search={ true }
                                 multiColumnSearch={ true }
                                 striped hover condensed pagination>
-                    <TableHeaderColumn row='1' width='150' dataField='id' isKey dataSort>ID</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='orgid' dataSort>Код клиента</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='org' dataSort dataFormat={showCustomerName}>Наименование клиента</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='devid' dataSort>Устройство</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='org' dataSort dataFormat={showCustomerName}>Название клиента</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='devtype' dataSort>Тип устройства</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='id' isKey dataFormat={hrefFormatter} hiddenOnInsert>Управление</TableHeaderColumn>
                 </BootstrapTable >
             </div>
         )}
 }
 function showCustomerName(cell, row) {
     return cell.organization;
+}
+function hrefFormatter(cell, row) {
+    const goTo = { pathname: "/devicecard", deviceid: cell };
+    return  <Link to={goTo}>Редактирование...</Link>;
 }
 
 export default DevicesComponent

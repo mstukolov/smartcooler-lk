@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
-import { BootstrapTable, TableHeaderColumn, InsertButton } from "react-bootstrap-table";
+import { BootstrapTable, TableHeaderColumn, InsertModalHeader } from "react-bootstrap-table";
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import axios from 'axios';
 
@@ -24,16 +24,20 @@ class CustomersComponent extends Component {
             parentorgid: '13445412'
         }
         this.options = {
-            //insertModal: this.createCustomModal,
+            insertModalHeader: this.createCustomModalHeader,
             noDataText: 'Данные отсутствуют',
-            paginationPosition: 'bottom',
             afterInsertRow: this.onAfterInsertRow,
             afterDeleteRow: onAfterDeleteRow,
             insertText: 'Создать',
             deleteText: 'Удалить',
-            exportCSVText: 'Выгрузить CSV',
+            exportCSVText: 'Выгрузить CSV'
         };
     }
+    createCustomModalHeader = (closeModal, save) => {
+        return (
+            <InsertModalHeader title='Создание новой организации'/>
+        )}
+
     componentDidMount(){
         let url = "http://localhost:6013/organizations?parentorgid=" + this.state.parentorgid
         axios.get(url).then(function (response) {
@@ -70,16 +74,14 @@ class CustomersComponent extends Component {
                     <TableHeaderColumn row='1' width='150' dataField='organization' isKey dataSort>Организация</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='active' dataSort hiddenOnInsert={true}>Активность</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='agreement' dataSort>Договор</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='agreementDate' dataSort dataFormat={adjustDateCell} hiddenOnInsert>Дата договора</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='contact' dataSort >Контактное лицо</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='phone' dataSort >Телефон</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='inventQty' dataSort>Остаток</TableHeaderColumn>
                 </BootstrapTable >
             </div>
         )}
 }
 
-function adjustDateCell(cell, row) {
-    return cell;
-}
 function hrefFormatter(cell, row) {
     const newTo = { pathname: "/orgcard", orgid: cell };
     return  <Link to={newTo}>Детали...</Link>;
