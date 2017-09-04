@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
-import { FormGroup, ControlLabel, FormControl, HelpBlock, Button} from "react-bootstrap";
+import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, Form} from "react-bootstrap";
 
 class OrderdeviceComponent extends Component {
 
@@ -38,7 +38,7 @@ const FormExample = React.createClass({
 
     render() {
         return (
-            <form>
+            <Form style={{width:'800px', padding: '20px'}}>
                 <FormGroup
                     controlId="formBasicText"
                     validationState={this.getValidationState()}>
@@ -56,10 +56,10 @@ const FormExample = React.createClass({
                     <FormControl.Feedback />
 
                 </FormGroup>
-                <Button type="submit">
+                <Button type="submit" bsStyle="success" bgSize="large">
                     Отправить заказ
                 </Button>
-            </form>
+            </Form>
         );
     }
 });

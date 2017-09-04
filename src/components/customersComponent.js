@@ -70,13 +70,13 @@ class CustomersComponent extends Component {
                                 search={ true }
                                 multiColumnSearch={ true }
                                 striped hover condensed pagination>
-                    <TableHeaderColumn row='1' width='150' dataField='id' dataSort dataFormat={hrefFormatter} hiddenOnInsert>Управление</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='organization' isKey dataSort>Организация</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='active' dataSort hiddenOnInsert={true}>Активность</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='agreement' dataSort>Договор</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='contact' dataSort >Контактное лицо</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='phone' dataSort >Телефон</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='inventQty' dataSort>Остаток</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='id' dataSort dataFormat={hrefFormatter} hiddenOnInsert>Управление</TableHeaderColumn>
                 </BootstrapTable >
             </div>
         )}
@@ -84,7 +84,7 @@ class CustomersComponent extends Component {
 
 function hrefFormatter(cell, row) {
     const newTo = { pathname: "/orgcard", orgid: cell };
-    return  <Link to={newTo}>Детали...</Link>;
+    return  <Link to={newTo}>Редактирование...</Link>;
 }
 
 export default CustomersComponent
