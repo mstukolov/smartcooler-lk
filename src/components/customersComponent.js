@@ -15,7 +15,13 @@ function onAfterDeleteRow(rowKeys) {
 
 var self;
 class CustomersComponent extends Component {
-
+    static onEnter(nextState, replace) {
+        debugger
+        const login = window.localStorage.getItem('rr_login')
+        if (login !== 'admin') {
+            replace('/')
+        }
+    }
     constructor(props) {
         super(props);
         self = this;

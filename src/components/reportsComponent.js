@@ -92,13 +92,14 @@ class ReportsComponent extends Component {
     render() {
         return (
             <div>
-                <h1>Аналитика потребления</h1>
-                <Form inline>
+                <h1>Анализ потребления</h1>
+                <Form style={{width:'100%', padding: '20px'}}>
                     <FormGroup>
                         <ControlLabel>Дата с:</ControlLabel>
                         <DatePicker id="start" name='start' value={this.state.start} onChange={this.handleChangePeriodStart.bind(this)} />
                         <ControlLabel>Дата по:</ControlLabel>
                         <DatePicker id="end" name='end' value={this.state.end} onChange={this.handleChangePeriodEnd.bind(this)} />
+                        <ControlLabel>Организация:</ControlLabel>
                         <Select
                             name="form-field-name"
                             autosize={true}
@@ -109,7 +110,8 @@ class ReportsComponent extends Component {
 
                     </FormGroup>
                     <FormGroup>
-                        <Button bsStyle="primary" bsSize="large" onClick={() => this.requestChartsData()}>Сформировать аналитику</Button>
+                        <Button bsStyle="primary" style={{width:'100%'}} bsSize="large"
+                                onClick={() => this.requestChartsData()}>Запустить запрос данных</Button>
                     </FormGroup>
                 </Form>
 

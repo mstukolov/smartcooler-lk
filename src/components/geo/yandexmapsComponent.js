@@ -31,10 +31,11 @@ class YandexmapsComponent extends Component {
                 balloonContent: 'EEEEEEE'
             }}
         />);*/
+    }
+    componentDidMount(){
         let urlChildOrgs = "http://localhost:6013/devices?parentorgid=" + this.state.parentorgid
         axios.get(urlChildOrgs).then(function (response) {
-            placemarks = []
-            debugger
+            //placemarks = []
             response.data.map((item) =>
             {
                 placemarks.push(
@@ -44,23 +45,7 @@ class YandexmapsComponent extends Component {
                     />
                 )
             })
-
         })
-        debugger
-    }
-    componentDidMount(){
-        /*let urlChildOrgs = "http://localhost:6013/devices?parentorgid=" + this.state.parentorgid
-        axios.get(urlChildOrgs).then(function (response) {
-            placemarks = []
-
-            response.data.map((item) =>
-                {
-                    placemarks.push(<Placemark
-                        geometry={{coordinates: [55.913167, 37.713099]}}
-                        properties={{balloonContent: item.devid}}
-                    />)
-                })
-        })*/
     }
     render() {
         return (

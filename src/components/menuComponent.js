@@ -14,6 +14,7 @@ import ReplenishmentComponent from "./replenishmentComponent";
 import YandexmapsComponent from "./geo/yandexmapsComponent";
 import OrganizationCard from "./customers/organizationCard";
 import DeviceCard from "./devices/deviceCard";
+import Login from '../components/auth/loginComponent';
 
 const navbar = {color: '#c0c3c6', fontSize:18};
 
@@ -36,7 +37,7 @@ class MenuComponent extends Component {
                             <Navbar.Collapse>
                                 <Nav>
                                     <NavItem eventKey={1}>
-                                        <Link to="/reports" style={navbar}>Отчеты потребления</Link>
+                                        <Link to="/reports" style={navbar}>Анализ потребления</Link>
                                     </NavItem>
                                     <NavItem eventKey={2}>
                                         <Link style={navbar} to="/replenishment">Пополнение</Link>
@@ -59,11 +60,14 @@ class MenuComponent extends Component {
                                             <Link to="/support">Техническая поддержка</Link>
                                         </MenuItem>
                                     </NavDropdown>
+                                    <NavItem eventKey={6}>
+                                        <Link style={navbar} to="/login">Войти</Link>
+                                    </NavItem>
                                 </Nav>
-                                <Nav pullRight>
+                                {/*<Nav pullRight>
                                     <NavItem eventKey={1} href="#">Link Right</NavItem>
                                     <NavItem eventKey={2} href="#">Link Right</NavItem>
-                                </Nav>
+                                </Nav>*/}
                             </Navbar.Collapse>
                         </Navbar>
                         <hr/>
@@ -71,19 +75,26 @@ class MenuComponent extends Component {
 
                         </Route>*/}
                         <Route exact path="/" component={YandexmapsComponent}/>
-                        <Route exact path="/reports" component={ReportsComponent}/>
+                        <Route exact path="/reports" component={ReportsComponent} render={() => {checkLogin()}} />
                         <Route path="/replenishment" component={ReplenishmentComponent}/>
                         <Route path="/devices" component={DevicesComponent}/>
-                        <Route path="/customers" component={CustomersComponent}/>
+                        <Route path="/customers" component={CustomersComponent} onEnter={CustomersComponent.onEnter}/>
                         <Route path="/order-new-device" component={OrderdeviceComponent}/>
                         <Route path="/contact" component={ContactComponent}/>
                         <Route path="/support" component={SupportComponent}/>
                         <Route path="/orgcard" component={OrganizationCard}/>
                         <Route path="/devicecard" component={DeviceCard}/>
+                        <Route path='/login' component={Login} onEnter={checkLogin}/>
                     </div>
                 </Router>
             </div>
         )}
 }
-
+function checkLogin() {
+    debugger
+    const login = window.localStorage.getItem('rr_login')
+    if (login === 'admin') {
+        console.log('пропусти')
+    }
+}
 export default MenuComponent
