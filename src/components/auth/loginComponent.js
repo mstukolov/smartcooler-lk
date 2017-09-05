@@ -15,18 +15,15 @@ class Login extends Component {
         e.preventDefault()
         const login = e.target.elements[0].value
         const password = e.target.elements[1].value
-        window.localStorage.setItem('rr_login', login)
-        window.localStorage.setItem('rr_password', password)
+        window.localStorage.clear()
+        window.localStorage.setItem('c2m_login', login)
+        window.localStorage.setItem('c2m_password', password)
 
         if(login === 'maks' && password =='123456'){
-            window.localStorage.setItem('authorized', true)
-        }else {window.localStorage.setItem('authorized', false)}
+            window.localStorage.setItem('c2m_authorized', true)
+        }else {window.localStorage.setItem('c2m_authorized', false)}
 
-        if (window.localStorage.getItem('authorized') === 'true') {
-            this.context.router.history.push('/')
-        } else {
-            this.context.router.history.push('/login')
-        }
+        this.context.router.history.push('/')
     }
     render() {
         return (
