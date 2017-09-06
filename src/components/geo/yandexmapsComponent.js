@@ -21,6 +21,7 @@ class YandexmapsComponent extends Component {
     }
     componentDidMount(){
         let urlChildOrgs = RootUrl.ROOT_URL_PRODUCTION + "/devices?parentorgid=" + this.state.parentorgid
+        placemarks = [];
         axios.get(urlChildOrgs).then(function (response) {
             response.data.map((item) =>
             {
