@@ -18,7 +18,9 @@
     "react-timeseries-charts": "^0.12.8",
     "recharts": "latest",
     "react-yandex-maps": "latest",
-    "history": "latest"
+    "history": "latest",
+    "axios": "latest",
+    "bootstrap": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,8 +2,11 @@
  * Created by MAKS on 04.09.2017.
  */
 import React, {Component, PropTypes } from 'react';
+import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
-import {FormGroup, ControlLabel, FormControl, Button, Col, Checkbox, Form} from "react-bootstrap";
+import {FormGroup, ControlLabel, FormControl, Button, Col, Form} from "react-bootstrap";
+
+import RootUrl from "../../config/config";
 
 class Login extends Component {
     constructor() {
@@ -19,11 +22,20 @@ class Login extends Component {
         window.localStorage.setItem('c2m_login', login)
         window.localStorage.setItem('c2m_password', password)
 
-        if(login === 'maks' && password =='123456'){
-            window.localStorage.setItem('c2m_authorized', true)
-        }else {window.localStorage.setItem('c2m_authorized', false)}
+        let url = RootUrl.ROOT_URL_PRODUCTION + "/check-auth?" +
+                    "login=" + login + "&password=" + password;
+        var cashed_context = this.context;
 
-        this.context.router.history.push('/')
+        axios.get(url).then(function (response) {
+
+            if(response.data.auth === 'allowed') {
+                window.localStorage.setItem('c2m_authorized', true)
+                window.localStorage.setItem('c2m_orgid', response.data.orgid)
+                cashed_context.router.history.push('/')
+            } else {
+                window.localStorage.setItem('c2m_authorized', false)
+            }
+        }).catch(function (error) { debugger; console.log(error)});
     }
     render() {
         return (

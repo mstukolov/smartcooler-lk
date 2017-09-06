@@ -4,8 +4,9 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import axios from 'axios';
+import RootUrl from "../config/config";
 
 var self;
 class DevicesComponent extends Component {
@@ -14,7 +15,7 @@ class DevicesComponent extends Component {
         self = this;
         this.state = {
             data: [],
-            parentorgid: '13445412'
+            parentorgid: window.localStorage.getItem('c2m_orgid')
         }
         this.options = {
             defaultSortName: 'devid',
@@ -29,7 +30,7 @@ class DevicesComponent extends Component {
     }
 
     componentDidMount(){
-        let url = "http://localhost:6013/devices?parentorgid=" + this.state.parentorgid
+        let url = RootUrl.ROOT_URL_PRODUCTION + "/devices?parentorgid=" + this.state.parentorgid
         axios.get(url).then(function (response) {
             self.setState({data: response.data})}).catch(function (error) {});
     }

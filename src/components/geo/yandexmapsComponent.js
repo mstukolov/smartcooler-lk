@@ -4,7 +4,9 @@
 import React, {Component} from 'react';
 import { YMaps, Map, GeoObject, Placemark } from 'react-yandex-maps';
 import axios from 'axios';
-import MenuComponent from "../menuComponent";
+import RootUrl from "../../config/config";
+
+
 const mapState = { center: [55.76, 37.64], zoom: 10 };
 
 var placemarks = []
@@ -13,14 +15,13 @@ class YandexmapsComponent extends Component {
     constructor(){
         super();
         this.state = {
-            parentorgid: '13445412',
+            parentorgid: window.localStorage.getItem('c2m_orgid'),
             width: '100%', height: '1100', showMap: true
         }
     }
     componentDidMount(){
-        let urlChildOrgs = "http://localhost:6013/devices?parentorgid=" + this.state.parentorgid
+        let urlChildOrgs = RootUrl.ROOT_URL_PRODUCTION + "/devices?parentorgid=" + this.state.parentorgid
         axios.get(urlChildOrgs).then(function (response) {
-            //placemarks = []
             response.data.map((item) =>
             {
                 placemarks.push(

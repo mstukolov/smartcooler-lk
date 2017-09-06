@@ -4,9 +4,9 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { BootstrapTable, TableHeaderColumn, InsertModalHeader } from "react-bootstrap-table";
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import axios from 'axios';
-
+import RootUrl from "../config/config";
 
 
 function onAfterDeleteRow(rowKeys) {
@@ -27,7 +27,7 @@ class CustomersComponent extends Component {
         self = this;
         this.state = {
             data: [],
-            parentorgid: '13445412'
+            parentorgid: window.localStorage.getItem('c2m_orgid')
         }
         this.options = {
             insertModalHeader: this.createCustomModalHeader,
@@ -45,12 +45,12 @@ class CustomersComponent extends Component {
         )}
 
     componentDidMount(){
-        let url = "http://localhost:6013/organizations?parentorgid=" + this.state.parentorgid
+        let url = RootUrl.ROOT_URL_PRODUCTION + "/organizations?parentorgid=" + this.state.parentorgid
         axios.get(url).then(function (response) {
             self.setState({data: response.data})}).catch(function (error) {});
     }
     onAfterInsertRow(row) {
-        var url = "http://localhost:6013/create-organization"
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/create-organization"
             axios.post(url, {
                     organization: row.organization,
                     parentorgid: self.state.parentorgid,
@@ -58,7 +58,7 @@ class CustomersComponent extends Component {
                     inventQty:row.inventQty
                 }
             ).then(function (response) {
-                let url = "http://localhost:6013/organizations?parentorgid=" + self.state.parentorgid
+                let url = RootUrl.ROOT_URL_PRODUCTION + "/organizations?parentorgid=" + self.state.parentorgid
                 axios.get(url).then(function (response) {
                     self.setState({data: response.data})}).catch(function (error) {});
             }).catch(function (error) {});

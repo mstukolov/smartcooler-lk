@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {FormGroup, ControlLabel, FormControl, Button, Col, InputGroup, Form} from "react-bootstrap";
 import MessageComponent from "../util/messageComponent";
+import RootUrl from "../../config/config";
 
 var childObjects = [];
 var self;
@@ -14,7 +15,7 @@ class DeviceCard extends Component {
         super(props, context);
         self = this;
         this.state = {
-            parentorgid: '13445412',
+            parentorgid: window.localStorage.getItem('c2m_orgid'),
             deviceid:this.props.location.deviceid,
             deviceName: '',
             refOrganization: '',
@@ -33,7 +34,7 @@ class DeviceCard extends Component {
 
     }
     componentDidMount(){
-        var url = "http://localhost:6013/device-details?deviceid=" + this.props.location.deviceid
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/device-details?deviceid=" + this.props.location.deviceid
         axios.get(url).then(function (response) {
             self.setState({
                 deviceName: response.data.devid,
@@ -47,14 +48,14 @@ class DeviceCard extends Component {
 
             })}).catch(function (error) {});
 
-        let urlChildOrgs = "http://localhost:6013/organizations?parentorgid=" + this.state.parentorgid
+        let urlChildOrgs = RootUrl.ROOT_URL_PRODUCTION + "/organizations?parentorgid=" + this.state.parentorgid
         axios.get(urlChildOrgs).then(function (response) {
             childObjects = []
             response.data.map((item) => {childObjects.push(<option value={item.id}>{item.id +','+item.organization}</option>)})
         })
     }
     save(){
-        var url = "http://localhost:6013/save-device-details"
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/save-device-details"
         axios.post(url, {
             deviceid:this.props.location.deviceid,
             orgid:this.state.refOrganization,

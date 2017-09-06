@@ -2,18 +2,27 @@
  * Created by MAKS on 22.08.2017.
  */
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import axios from 'axios';
+import RootUrl from "../config/config";
 
+const navbarCompany = {color: '#c0c3c6', fontSize:24};
 const navbar = {color: '#c0c3c6', fontSize:18};
+const navbarRight = {color: '#c0c3c2', fontSize:14};
 
+var self;
 class MenuComponent extends Component {
+
     constructor() {
         super();
-        //this.state = {isAuth: window.localStorage.getItem('c2m_authorized')}
+        self = this;
+        this.state = {organization: 'undefined'}
     }
     componentDidMount(){
-
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/organization-details?orgid=" + window.localStorage.getItem('c2m_orgid')
+        axios.get(url).then(function (response) {
+            self.setState({organization: response.data.organization})}).catch(function (error) {});
     }
     render() {
         return (
@@ -21,7 +30,7 @@ class MenuComponent extends Component {
                     <Navbar inverse collapseOnSelect>
                         <Navbar.Header>
                             <Navbar.Brand>
-                                <Link to="/" style={navbar}>Клиентский портал</Link>
+                                <Link to="/" style={navbarCompany}>{self.state.organization}</Link>
                             </Navbar.Brand>
                             <Navbar.Toggle />
                         </Navbar.Header>
@@ -53,9 +62,11 @@ class MenuComponent extends Component {
                                 </NavDropdown>
                             </Nav>
                             <Nav pullRight>
-                                <NavItem eventKey={1} href="#">{localStorage.getItem('c2m_login')}</NavItem>
+                                <NavItem eventKey={1} style={navbarRight} href="#">
+                                    {localStorage.getItem('c2m_login')}
+                                </NavItem>
                                 <NavItem eventKey={2}>
-                                    <Link to="/exit">Выйти</Link>
+                                    <Link to="/logout" style={navbarRight}>Выйти</Link>
                                 </NavItem>
                             </Nav>
                         </Navbar.Collapse>

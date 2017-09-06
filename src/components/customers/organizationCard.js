@@ -7,6 +7,7 @@ import axios from 'axios';
 import {FormGroup, ControlLabel, FormControl, Button} from "react-bootstrap";
 import DatePicker from "react-bootstrap-date-picker"
 import MessageComponent from "../util/messageComponent";
+import RootUrl from "../../config/config";
 
 var self;
 class OrganizationCard extends Component {
@@ -24,7 +25,7 @@ class OrganizationCard extends Component {
 
     }
     componentDidMount(){
-        var url = "http://localhost:6013/organization-details?orgid=" + this.props.location.orgid
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/organization-details?orgid=" + this.props.location.orgid
         axios.get(url).then(function (response) {
             self.setState({organizationDetails: response.data})}).catch(function (error) {});
     }
@@ -36,7 +37,7 @@ class OrganizationCard extends Component {
         this.setState({ organizationDetails: {agreementDate: e }});
     }
     saveCard(){
-        var url = "http://localhost:6013/save-organization-details"
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/save-organization-details"
         axios.post(url, {
                     orgid:self.state.orgid,
                     organization: self.state.organizationDetails.organization,
@@ -50,7 +51,7 @@ class OrganizationCard extends Component {
         }).then(function (response) {self.setState({status: 'success'})}).catch(function (error) {});
     }
     deleteCard(){
-        var url = "http://localhost:6013/delete-organization";
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/delete-organization";
         axios.post(url, {orgid:self.state.orgid})
                 .then(function (response) {
                     self.setState({status: 'success'})

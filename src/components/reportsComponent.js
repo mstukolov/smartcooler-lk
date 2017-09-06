@@ -14,6 +14,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import ConsumptionChartComponent from "./recharts/consumptionChartComponent";
 
+import RootUrl from "../config/config";
 
 var self;
 var organizations = [];
@@ -32,13 +33,13 @@ class ReportsComponent extends Component {
             orgid: 141,
             organizations : organizations,
             reportOrganization: '',
-            parentorgid : '13445412'
+            parentorgid : window.localStorage.getItem('c2m_orgid')
         }
         this.onChangeReportOrganization = this.onChangeReportOrganization.bind(this);
 
     }
     componentDidMount(){
-        let url = "http://localhost:6013/organizations?parentorgid=" + this.state.parentorgid;
+        let url = RootUrl.ROOT_URL_PRODUCTION + "/organizations?parentorgid=" + this.state.parentorgid;
         organizations = []
         axios.get(url).then(function (response) {
             response.data.map((item) => {organizations.push({value: item.id, label: item.id +','+item.organization})})
@@ -51,14 +52,14 @@ class ReportsComponent extends Component {
         this.setState({quartData:[]})
         this.setState({yearData:[]})
 
-        var urlDay = 'http://localhost:6013/repdaystats?' +
+        var urlDay = RootUrl.ROOT_URL_PRODUCTION + '/repdaystats?' +
                     'start='+ this.state.start +
                     '&end=' + this.state.end +
                     '&orgid=' + this.state.reportOrganization.value;
 
-        let urlMonth = 'http://localhost:6013/repmonthstats?orgid=' + this.state.reportOrganization.value
-        let urlQuart = 'http://localhost:6013/repquartstats?orgid=' + this.state.reportOrganization.value
-        let urlYear = 'http://localhost:6013/repyeartstats?orgid=' + this.state.reportOrganization.value
+        let urlMonth = RootUrl.ROOT_URL_PRODUCTION + '/repmonthstats?orgid=' + this.state.reportOrganization.value
+        let urlQuart = RootUrl.ROOT_URL_PRODUCTION + '/repquartstats?orgid=' + this.state.reportOrganization.value
+        let urlYear  = RootUrl.ROOT_URL_PRODUCTION + '/repyeartstats?orgid=' + this.state.reportOrganization.value
 
         axios.get(urlDay).then(function (response) {
             self.setState({dailyData: self.state.dailyData.concat(response.data)})}).catch(function (error) {});
