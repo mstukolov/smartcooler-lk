@@ -81,7 +81,8 @@ class CustomersComponent extends Component {
                     <TableHeaderColumn row='1' width='150' dataField='agreement' dataSort>Договор</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='contact' dataSort >Контактное лицо</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='phone' dataSort >Телефон</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='inventQty' dataSort>Остаток</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='inventQty' dataSort>Начальный Остаток</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='currQty' dataSort>Текущий Остаток</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='id' dataSort dataFormat={hrefFormatter} hiddenOnInsert>Управление</TableHeaderColumn>
                 </BootstrapTable >
             </div>

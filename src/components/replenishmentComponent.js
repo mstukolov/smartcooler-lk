@@ -32,10 +32,8 @@ class ReplenishmentComponent extends Component {
     componentDidMount(){
         let url = RootUrl.ROOT_URL_PRODUCTION + "/replenishment?parentorgid=" + this.state.parentorgid
         axios.get(url).then(function (response) {
-            self.setState({data: response.data})
-        }).catch(function (error) {});
+            self.setState({data: response.data})}).catch(function (error) {});
     }
-
 
     render() {
         return (

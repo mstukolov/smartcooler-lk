@@ -80,7 +80,8 @@ class DeviceCard extends Component {
     render() {
         return (
             <div>
-                <Form style={{width:'800px', padding: '20px'}}>
+                <h1>Карточка устройства</h1>
+                <Form style={{width:'50%', padding: '20px'}}>
 
                     <FormGroup controlId="organizationCard">
                         <FormGroup>
@@ -129,6 +130,7 @@ class DeviceCard extends Component {
                                      name="name"
                                      value={this.state.name}
                                      onChange={this.handleChange}/>
+
                         <hr/>
                         <Button bsStyle="success" bgSize="large" onClick={this.save}>Сохранить</Button>
                         <Button bsStyle="danger" bgSize="large" onClick={this.delete}>Удалить....</Button>
