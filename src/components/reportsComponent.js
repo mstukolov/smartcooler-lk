@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import {Button, Form} from "react-bootstrap";
 import axios from 'axios';
-import { TimeSeries, TimeEvent, TimeRange } from "pondjs";
+
 import FormGroup from "react-bootstrap/es/FormGroup";
 import ControlLabel from "react-bootstrap/es/ControlLabel";
 import DatePicker from "react-bootstrap-date-picker"

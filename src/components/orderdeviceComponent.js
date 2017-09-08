@@ -4,62 +4,60 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, Form} from "react-bootstrap";
+import axios from 'axios';
+import RootUrl from "../config/config";
 
+var self;
 class OrderdeviceComponent extends Component {
 
+    constructor(){
+        super();
+        self = this;
+        this.state = {
+            contact: '',
+            messageText: '',
+            mailtype: 'order',
+            orgid: window.localStorage.getItem('c2m_orgid')
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    sentRequest(){
+        var url = RootUrl.ROOT_URL_PRODUCTION + "/send-mail-notification"
+        axios.post(url, {
+            orgid:self.state.orgid,
+            mailtype: self.state.mailtype,
+            contact:self.state.contact,
+            messageText:self.state.messageText
+        }).then(function (response) {
+            console.log(response.data);
+        }).catch(function (error) {});
+    }
+    handleChange(evt){
+        this.setState({[evt.target.name]: evt.target.value})
+    }
     render() {
         return (
             <div>
-                <h1>Заказ нового оборудования</h1>
-                <FormExample/>
+                <h1>Запрос на новое оборудование</h1>
+                <Form onSubmit={this.sentRequest} style={{width:'800px', padding: '20px'}}>
+                    <FormGroup
+                        controlId="formBasicText">
+                        <ControlLabel>Контактные данные</ControlLabel>
+                        <FormControl name="contact" type="text" onChange={this.handleChange}/>
+                        <HelpBlock>ФИО заявителя</HelpBlock>
+
+                        <ControlLabel>Текст обращения</ControlLabel>
+                        <FormControl  name="messageText" componentClass="textarea" rows="8" onChange={this.handleChange}/>
+                        <HelpBlock>Текст обращения в свободной форме</HelpBlock>
+                        <FormControl.Feedback />
+
+                    </FormGroup>
+                    <Button type="submit" bsStyle="success" bgSize="large">
+                        Отправить запрос
+                    </Button>
+                </Form>
             </div>
         )}
 }
 
 export default OrderdeviceComponent
-
-const FormExample = React.createClass({
-    getInitialState() {
-        return {
-            value: ''
-        };
-    },
-
-    getValidationState() {
-        const length = this.state.value.length;
-        if (length > 10) return 'success';
-        else if (length > 5) return 'warning';
-        else if (length > 0) return 'error';
-    },
-
-    handleChange(e) {
-        this.setState({ value: e.target.value });
-    },
-
-    render() {
-        return (
-            <Form style={{width:'800px', padding: '20px'}}>
-                <FormGroup
-                    controlId="formBasicText"
-                    validationState={this.getValidationState()}>
-                    <ControlLabel>Контактные данные</ControlLabel>
-                    <FormControl
-                        type="text"
-                        value={this.state.value}
-                        placeholder="Enter text"
-                        onChange={this.handleChange}
-                    /><HelpBlock>ФИО заявителя</HelpBlock>
-
-                        <ControlLabel>Текст обращения</ControlLabel>
-                        <FormControl componentClass="textarea" placeholder="textarea" />
-                        <HelpBlock>Текст обращения в свободной форме</HelpBlock>
-                    <FormControl.Feedback />
-
-                </FormGroup>
-                <Button type="submit" bsStyle="success" bgSize="large">
-                    Отправить заказ
-                </Button>
-            </Form>
-        );
-    }
-});

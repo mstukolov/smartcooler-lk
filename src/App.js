@@ -10,7 +10,8 @@ import CustomersComponent from "./components/customersComponent";
 import OrderdeviceComponent from "./components/orderdeviceComponent";
 import ContactComponent from "./components/contactComponent";
 import SupportComponent from "./components/supportComponent";
-import ReplenishmentComponent from "./components/replenishmentComponent";
+import ReplenishmentComponent from "./components/replenishment/replenishmentComponent";
+import SchedulereplenishmentComponent from "./components/replenishment/schedulereplenishmentComponent";
 import OrganizationCard from "./components/customers/organizationCard";
 import DeviceCard from "./components/devices/deviceCard";
 import Logout from "./components/auth/logout";
@@ -36,6 +37,7 @@ class App extends Component {
               <Route exact path="/" component={isAuth(YandexmapsComponent)}/>
               <Route exact path="/reports" component={isAuth(ReportsComponent)}/>
               <Route path="/replenishment" component={isAuth(ReplenishmentComponent)}/>
+              <Route path="/schedule-replenishment" component={isAuth(SchedulereplenishmentComponent)}/>
               <Route path="/devices" component={isAuth(DevicesComponent)}/>
               <Route path="/customers" component={isAuth(CustomersComponent)}/>
               <Route path="/order-new-device" component={isAuth(OrderdeviceComponent)}/>

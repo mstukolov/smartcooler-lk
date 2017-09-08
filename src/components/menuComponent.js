@@ -36,27 +36,46 @@ class MenuComponent extends Component {
                         </Navbar.Header>
                         <Navbar.Collapse>
                             <Nav>
-                                <NavItem eventKey={1}>
+                                {/*<NavItem eventKey={1}>
                                     <Link to="/reports" style={navbar}>Анализ потребления</Link>
-                                </NavItem>
-                                <NavItem eventKey={2}>
+                                </NavItem>*/}
+                                {/*<NavItem eventKey={2}>
                                     <Link style={navbar} to="/replenishment">Пополнение</Link>
-                                </NavItem>
-                                <NavItem eventKey={3}>
-                                    <Link style={navbar} to="/devices">Оборудование</Link>
-                                </NavItem>
-                                <NavItem eventKey={4}>
+                                </NavItem>*/}
+                                <NavItem eventKey={1}>
                                     <Link style={navbar} to="/customers">Клиенты</Link>
                                 </NavItem>
-                                <NavDropdown eventKey={5} style={navbar} title="Обратная связь" id="basic-nav-dropdown">
-                                    <MenuItem eventKey={5.1}>
+                                <NavItem eventKey={2}>
+                                    <Link style={navbar} to="/devices">Оборудование</Link>
+                                </NavItem>
+
+                                <NavDropdown eventKey={3} style={navbar} title="Пополнение" id="basic-nav-dropdown">
+                                    <MenuItem eventKey={3.1}>
+                                        <Link to="/replenishment">Пополнение на месяц</Link>
+                                    </MenuItem>
+                                    <MenuItem divider />
+                                    <MenuItem eventKey={3.2}>
+                                        <Link to="/schedule-replenishment">Прогноз по графику</Link>
+                                    </MenuItem>
+                                </NavDropdown>
+                                <NavDropdown eventKey={4} style={navbar} title="Отчеты" id="basic-nav-dropdown">
+                                    <MenuItem eventKey={4.1}>
+                                        <Link to="/reports">Анализ потребления</Link>
+                                    </MenuItem>
+                                    <MenuItem divider />
+                                    <MenuItem eventKey={4.3}>
+                                        <Link to="/orders-fulfillment">План-фактный анализ</Link>
+                                    </MenuItem>
+                                </NavDropdown>
+                                <NavDropdown eventKey={6} style={navbar} title="Обратная связь" id="basic-nav-dropdown">
+                                    <MenuItem eventKey={6.1}>
                                         <Link to="/order-new-device">Заказ нового оборудования</Link>
                                     </MenuItem>
-                                    <MenuItem eventKey={5.2}>
+                                    <MenuItem eventKey={6.2}>
                                         <Link to="/contact">Контактная информация</Link>
                                     </MenuItem>
                                     <MenuItem divider />
-                                    <MenuItem eventKey={5.3}>
+                                    <MenuItem eventKey={6.3}>
                                         <Link to="/support">Техническая поддержка</Link>
                                     </MenuItem>
                                 </NavDropdown>

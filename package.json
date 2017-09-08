@@ -1,9 +1,10 @@
 {
   "name": "smartcooler-lk",
+  "engines": {
+    "node": "6.10.2"},
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "pondjs": "latest",
     "react": "^15.6.1",
     "react-bootstrap": "latest",
     "react-bootstrap-date-picker": "latest",
