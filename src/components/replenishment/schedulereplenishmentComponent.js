@@ -1,7 +1,4 @@
 /**
- * Created by MAKS on 08.09.2017.
- */
-/**
  * Created by MAKS on 23.08.2017.
  */
 import React, {Component} from 'react';
@@ -41,7 +38,7 @@ class SchedulereplenishmentComponent extends Component {
     render() {
         return (
             <div>
-                <h1>Прогноз пополнения по графику</h1>
+                <h1>Пополнение по графику</h1>
                 <div>
                     <BootstrapTable data={ self.state.data }
                                     selectRow={ selectRowProp }

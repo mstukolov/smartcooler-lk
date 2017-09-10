@@ -14,6 +14,7 @@ import ReplenishmentComponent from "./components/replenishment/replenishmentComp
 import SchedulereplenishmentComponent from "./components/replenishment/schedulereplenishmentComponent";
 import OrganizationCard from "./components/customers/organizationCard";
 import DeviceCard from "./components/devices/deviceCard";
+import FullfillmentComponent from "./components/reports/fullfillmentComponent";
 import Logout from "./components/auth/logout";
 
 import {Route} from 'react-router-dom';
@@ -45,6 +46,7 @@ class App extends Component {
               <Route path="/support" component={isAuth(SupportComponent)}/>
               <Route path="/orgcard" component={isAuth(OrganizationCard)}/>
               <Route path="/devicecard" component={isAuth(DeviceCard)}/>
+                <Route path="/orders-fulfillment" component={isAuth(FullfillmentComponent)}/>
               <Route exact path="/logout" component={Logout}/>
 
       </div>

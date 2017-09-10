@@ -1,4 +1,10 @@
 /**
+ * Created by MAKS on 10.09.2017.
+ */
+/**
+ * Created by MAKS on 08.09.2017.
+ */
+/**
  * Created by MAKS on 23.08.2017.
  */
 import React, {Component} from 'react';
@@ -13,7 +19,7 @@ const selectRowProp = {
 };
 var self;
 
-class ReplenishmentComponent extends Component {
+class FullfillmentComponent extends Component {
     constructor(props) {
         super(props);
         self = this;
@@ -30,7 +36,8 @@ class ReplenishmentComponent extends Component {
         };
     }
     componentDidMount(){
-        let url = RootUrl.ROOT_URL_PRODUCTION + "/replenishment?parentorgid=" + this.state.parentorgid
+        let url = RootUrl.ROOT_URL_PRODUCTION +
+                "/fulfillment-orders?parentorgid=" + this.state.parentorgid
         axios.get(url).then(function (response) {
             self.setState({data: response.data})}).catch(function (error) {});
     }
@@ -38,7 +45,7 @@ class ReplenishmentComponent extends Component {
     render() {
         return (
             <div>
-                <h1>Прогноз пополнения на месяц</h1>
+                <h1>План-факторный анализ</h1>
                 <div>
                     <BootstrapTable data={ self.state.data }
                                     selectRow={ selectRowProp }
@@ -53,9 +60,10 @@ class ReplenishmentComponent extends Component {
                         <TableHeaderColumn width='100' dataField='orgid' dataSort>Код клиента</TableHeaderColumn>
                         <TableHeaderColumn width='150' dataField='organization' dataSort>Название клиента</TableHeaderColumn>
                         <TableHeaderColumn width='100' dataField='orderdate' dataSort>Дата заказа</TableHeaderColumn>
-                        <TableHeaderColumn width='100' dataField='ordertype' dataSort>Тип заказа</TableHeaderColumn>
-                        <TableHeaderColumn width='150' dataField='orderweekday' dataSort>День недели</TableHeaderColumn>
-                        <TableHeaderColumn width='150' dataField='orderqty' dataSort>Количество</TableHeaderColumn>
+                        <TableHeaderColumn width='100' dataField='orderweekday' dataSort>День недели</TableHeaderColumn>
+                        <TableHeaderColumn width='150' dataField='avgbottle' dataSort>Среднее</TableHeaderColumn>
+                        <TableHeaderColumn width='150' dataField='orderQty' dataSort>План. кол-во</TableHeaderColumn>
+                        <TableHeaderColumn width='150' dataField='realQty' dataSort>Факт. кол-во</TableHeaderColumn>
 
                     </BootstrapTable >
                 </div>
@@ -65,4 +73,4 @@ class ReplenishmentComponent extends Component {
 }
 
 
-export default ReplenishmentComponent
+export default FullfillmentComponent

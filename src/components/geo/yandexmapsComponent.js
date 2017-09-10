@@ -10,13 +10,16 @@ import RootUrl from "../../config/config";
 const mapState = { center: [55.76, 37.64], zoom: 10 };
 
 var placemarks = []
+var self;
 class YandexmapsComponent extends Component {
 
     constructor(){
         super();
+        self = this;
         this.state = {
             parentorgid: window.localStorage.getItem('c2m_orgid'),
-            width: '100%', height: '1100', showMap: true
+            width: '100%', height: '1100', showMap: true,
+            devicePoints: []
         }
     }
     componentDidMount(){
@@ -32,6 +35,7 @@ class YandexmapsComponent extends Component {
                     />
                 )
             })
+            self.setState({devicePoints: placemarks})
         })
     }
     render() {
@@ -40,7 +44,7 @@ class YandexmapsComponent extends Component {
                     <YMaps>
                         <div id="map-basics">
                             <Map state={mapState} width={this.state.width} height={this.state.height}>
-                                {placemarks}
+                                {this.state.devicePoints}
                             </Map>
 
                         </div>

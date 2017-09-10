@@ -51,11 +51,11 @@ class MenuComponent extends Component {
 
                                 <NavDropdown eventKey={3} style={navbar} title="Пополнение" id="basic-nav-dropdown">
                                     <MenuItem eventKey={3.1}>
-                                        <Link to="/replenishment">Пополнение на месяц</Link>
+                                        <Link to="/schedule-replenishment">Пополнение по графику</Link>
                                     </MenuItem>
                                     <MenuItem divider />
                                     <MenuItem eventKey={3.2}>
-                                        <Link to="/schedule-replenishment">Прогноз по графику</Link>
+                                        <Link to="/replenishment">Прогноз на месяц</Link>
                                     </MenuItem>
                                 </NavDropdown>
                                 <NavDropdown eventKey={4} style={navbar} title="Отчеты" id="basic-nav-dropdown">
