@@ -1,8 +1,5 @@
 /**
- * Created by MAKS on 10.09.2017.
- */
-/**
- * Created by MAKS on 08.09.2017.
+ * Created by MAKS on 11.09.2017.
  */
 /**
  * Created by MAKS on 23.08.2017.
@@ -19,7 +16,7 @@ const selectRowProp = {
 };
 var self;
 
-class FullfillmentComponent extends Component {
+class FlyReplenishmentComponent extends Component {
     constructor(props) {
         super(props);
         self = this;
@@ -36,8 +33,7 @@ class FullfillmentComponent extends Component {
         };
     }
     componentDidMount(){
-        let url = RootUrl.ROOT_URL_PRODUCTION +
-                "/fulfillment-orders?parentorgid=" + this.state.parentorgid
+        let url = RootUrl.ROOT_URL_PRODUCTION + "/replenishment-schedule?parentorgid=" + this.state.parentorgid
         axios.get(url).then(function (response) {
             self.setState({data: response.data})}).catch(function (error) {});
     }
@@ -45,7 +41,7 @@ class FullfillmentComponent extends Component {
     render() {
         return (
             <div>
-                <h1>План-факторный анализ</h1>
+                <h1>Планирование графиков поставки</h1>
                 <div>
                     <BootstrapTable data={ self.state.data }
                                     selectRow={ selectRowProp }
@@ -59,13 +55,9 @@ class FullfillmentComponent extends Component {
                         <TableHeaderColumn width='50' dataField='id' isKey dataSort hidden>ID</TableHeaderColumn>
                         <TableHeaderColumn width='100' dataField='orgid' dataSort>Код клиента</TableHeaderColumn>
                         <TableHeaderColumn width='150' dataField='organization' dataSort>Название клиента</TableHeaderColumn>
-                        <TableHeaderColumn width='100' dataField='orderdate' dataSort>Дата заказа</TableHeaderColumn>
-                        <TableHeaderColumn width='100' dataField='orderweekday' dataSort>День недели</TableHeaderColumn>
-                        <TableHeaderColumn width='80' dataField='avgbottle' dataSort>Средн.</TableHeaderColumn>
-                        <TableHeaderColumn width='80' dataField='orderQty' dataSort>План. кол-во</TableHeaderColumn>
-                        <TableHeaderColumn width='80' dataField='realQty' dataSort>Факт. кол-во</TableHeaderColumn>
-                        <TableHeaderColumn width='80' dataField='deltaQty' dataSort>Разница</TableHeaderColumn>
-                        <TableHeaderColumn width='50' dataField='deltasignQty' dataFormat={formatDeltaDirection} dataSort>Изм</TableHeaderColumn>
+                        <TableHeaderColumn width='100' dataField='schedorderdate' dataSort>Дата заказа</TableHeaderColumn>
+                        <TableHeaderColumn width='100' dataField='ordertype' dataSort>Тип заказа</TableHeaderColumn>
+                        <TableHeaderColumn width='150' dataField='orderQty' dataSort>Количество</TableHeaderColumn>
 
                     </BootstrapTable >
                 </div>
@@ -73,10 +65,6 @@ class FullfillmentComponent extends Component {
 
         )}
 }
-function formatDeltaDirection(cell, row){
-    if(cell === -1) {return '<i class="glyphicon glyphicon-arrow-down text-danger" style="font-size:1.5em;">'}
-    if(cell === 1) {return '<i class="glyphicon glyphicon-arrow-up text-success" style="font-size:1.5em;">'}
-    return '';
-}
 
-export default FullfillmentComponent
+
+export default FlyReplenishmentComponent

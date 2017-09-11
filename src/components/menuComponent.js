@@ -57,6 +57,10 @@ class MenuComponent extends Component {
                                     <MenuItem eventKey={3.2}>
                                         <Link to="/replenishment">Прогноз на месяц</Link>
                                     </MenuItem>
+                                    {/*<MenuItem divider />
+                                    <MenuItem eventKey={3.3}>
+                                        <Link to="/flyReplenishment">Планирование графиков поставок</Link>
+                                    </MenuItem>*/}
                                 </NavDropdown>
                                 <NavDropdown eventKey={4} style={navbar} title="Отчеты" id="basic-nav-dropdown">
                                     <MenuItem eventKey={4.1}>

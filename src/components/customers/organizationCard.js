@@ -48,7 +48,12 @@ class OrganizationCard extends Component {
     }
     handleChange(e) {
         var fieldName = e.target.name;
-        this.setState({ organizationDetails: {[fieldName]: e.target.value }});
+        var currDate = new Date();
+        if(fieldName != "currQty"){
+            this.setState({ organizationDetails: {[fieldName]: e.target.value }})
+        }else{
+            this.setState({ organizationDetails: {[fieldName]: e.target.value,  updatedQty: currDate}})
+        };
     }
     handleChangeDate(e){
         this.setState({ organizationDetails: {agreementDate: e }});
@@ -64,6 +69,7 @@ class OrganizationCard extends Component {
                     active: self.state.organizationDetails.active,
                     inventQty:self.state.organizationDetails.inventQty,
                     currQty:self.state.organizationDetails.currQty,
+                    updatedQty:self.state.organizationDetails.updatedQty,
                     agreement:self.state.organizationDetails.agreement,
                     agreementDate:self.state.organizationDetails.agreementDate,
                     email:self.state.organizationDetails.email,
@@ -116,16 +122,14 @@ class OrganizationCard extends Component {
                                 <option value="Отключен">Отключен</option>
                             </FormControl>
 
-                            {/*<ControlLabel>Начальный Остаток:</ControlLabel>
-                            <FormControl type="text"
-                                         name="inventQty"
-                                         value={this.state.organizationDetails.inventQty}
-                                         onChange={this.handleChange}/>*/}
-                            <ControlLabel>Текущий Остаток:</ControlLabel>
-                            <FormControl type="text"
-                                         name="currQty"
-                                         value={this.state.organizationDetails.currQty}
-                                         onChange={this.handleChange}/>
+                            <FormGroup>
+                                <ControlLabel>Текущий Остаток:</ControlLabel>
+                                <FormControl type="text"
+                                             name="currQty"
+                                             value={this.state.organizationDetails.currQty}
+                                             onChange={this.handleChange}/>
+                            </FormGroup>
+
                             <ControlLabel>Договор:</ControlLabel>
                             <FormControl type="text"
                                          name="agreement"

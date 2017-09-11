@@ -118,25 +118,25 @@ class ReportsComponent extends Component {
 
                 <div>
 
-                    <ConsumptionChartComponent chartName="Дневное потребление"
+                    <ConsumptionChartComponent chartName="Дневное потребление(литры)"
                                                data={self.state.dailyData}
                                                dataKey={'recdate'}
                                                width={1500} height={500} barSize={5}/>
                     <Form inline>
                         <FormGroup>
-                          <ConsumptionChartComponent chartName="Месячное потребление"
+                          <ConsumptionChartComponent chartName="Месячное потребление(литры)"
                                                      data={self.state.monthData}
                                                      dataKey={'recmonthyear'}
                                                      width={500} height={300} barSize={20}/>
                         </FormGroup>
                         <FormGroup>
-                            <ConsumptionChartComponent chartName="Квартальное потребление"
+                            <ConsumptionChartComponent chartName="Квартальное потребление(литры)"
                                                        data={self.state.quartData}
                                                        dataKey={'recquart'}
                                                        width={500} height={300} barSize={40}/>
                         </FormGroup>
                         <FormGroup>
-                            <ConsumptionChartComponent chartName="Годовое потребление"
+                            <ConsumptionChartComponent chartName="Годовое потребление(литры)"
                                                        data={self.state.yearData}
                                                        dataKey={'recyear'}
                                                        width={500} height={300} barSize={80}/>
