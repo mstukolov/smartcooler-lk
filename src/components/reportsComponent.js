@@ -57,9 +57,25 @@ class ReportsComponent extends Component {
                     '&end=' + this.state.end +
                     '&orgid=' + this.state.reportOrganization.value;
 
-        let urlMonth = RootUrl.ROOT_URL_PRODUCTION + '/repmonthstats?orgid=' + this.state.reportOrganization.value
-        let urlQuart = RootUrl.ROOT_URL_PRODUCTION + '/repquartstats?orgid=' + this.state.reportOrganization.value
-        let urlYear  = RootUrl.ROOT_URL_PRODUCTION + '/repyeartstats?orgid=' + this.state.reportOrganization.value
+        var startDate = new Date(this.state.start);
+        var endDate = new Date(this.state.end);
+
+        let urlMonth = RootUrl.ROOT_URL_PRODUCTION +
+                            '/repmonthstats?orgid=' + this.state.reportOrganization.value +
+                            '&year_start=' + startDate.getFullYear() +
+                            '&year_end=' + endDate.getFullYear() +
+                            '&month_start=' + startDate.getMonth() +
+                            '&month_end=' + endDate.getMonth()
+
+        let urlQuart = RootUrl.ROOT_URL_PRODUCTION +
+                            '/repquartstats?orgid=' + this.state.reportOrganization.value +
+                            '&year_start=' + startDate.getFullYear() +
+                            '&year_end=' + endDate.getFullYear()
+
+        let urlYear  = RootUrl.ROOT_URL_PRODUCTION +
+                            '/repyeartstats?orgid=' + this.state.reportOrganization.value +
+                            '&year_start=' + startDate.getFullYear() +
+                            '&year_end=' + endDate.getFullYear()
 
         axios.get(urlDay).then(function (response) {
             self.setState({dailyData: self.state.dailyData.concat(response.data)})}).catch(function (error) {});
