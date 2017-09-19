@@ -64,8 +64,8 @@ class ReportsComponent extends Component {
                             '/repmonthstats?orgid=' + this.state.reportOrganization.value +
                             '&year_start=' + startDate.getFullYear() +
                             '&year_end=' + endDate.getFullYear() +
-                            '&month_start=' + startDate.getMonth() +
-                            '&month_end=' + endDate.getMonth()
+                            '&month_start=' + (startDate.getMonth()+1) +
+                            '&month_end=' + (endDate.getMonth() + 1)
 
         let urlQuart = RootUrl.ROOT_URL_PRODUCTION +
                             '/repquartstats?orgid=' + this.state.reportOrganization.value +
