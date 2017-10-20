@@ -7,6 +7,7 @@ import { BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import {Link} from 'react-router-dom'
 import axios from 'axios';
 import RootUrl from "../config/config";
+var dateFormat = require('dateformat');
 
 var self;
 class DevicesComponent extends Component {
@@ -51,8 +52,10 @@ class DevicesComponent extends Component {
                                 multiColumnSearch={ true }
                                 striped hover condensed pagination>
                     <TableHeaderColumn row='1' width='150' dataField='devid' dataSort>Устройство</TableHeaderColumn>
-                    <TableHeaderColumn row='1' width='150' dataField='org' dataSort dataFormat={showCustomerName}>Название клиента</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='org' dataSort dataFormat={showCustomerName}>Организация</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='devtype' dataSort>Тип устройства</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='lasttrans' dataFormat={showLastTransValue} dataSort>Последнее значение</TableHeaderColumn>
+                    <TableHeaderColumn row='1' width='150' dataField='lasttrans' dataFormat={showLastTransTime} dataSort>Выход на связь</TableHeaderColumn>
                     <TableHeaderColumn row='1' width='150' dataField='id' isKey dataFormat={hrefFormatter} hiddenOnInsert>Управление</TableHeaderColumn>
                 </BootstrapTable >
             </div>
@@ -61,6 +64,13 @@ class DevicesComponent extends Component {
 function showCustomerName(cell, row) {
     return cell.organization;
 }
+function showLastTransValue(cell, row) {
+    if(cell != null) {return cell.nparam1} else return null
+}
+function showLastTransTime(cell, row) {
+    if(cell != null) {return dateFormat(cell.createdAt, "dd-mm-yyyy HH:MM:ss")} else return null
+}
+
 function hrefFormatter(cell, row) {
     const goTo = { pathname: "/devicecard", deviceid: cell };
     return  <Link to={goTo}>Редактирование...</Link>;
